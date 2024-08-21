@@ -54,7 +54,8 @@ RUN apt-get -y install --no-install-recommends \
     sqlite3
 
 # ndn-cxx
-RUN git clone -b ndn-cxx-0.8.1 \
+RUN git clone \
+    # -b ndn-cxx-0.8.1 \
     https://github.com/named-data/ndn-cxx.git &&\
     cd ndn-cxx &&\
     ./waf configure &&\
@@ -63,7 +64,8 @@ RUN git clone -b ndn-cxx-0.8.1 \
     cd .. && rm -r ndn-cxx &&\
     ldconfig
 # NFD
-RUN git clone -b NFD-22.12 \
+RUN git clone \
+    # -b NFD-22.12 \
     --depth 1 --recursive https://github.com/named-data/NFD.git &&\
     cd NFD &&\
     ./waf configure &&\
@@ -72,7 +74,9 @@ RUN git clone -b NFD-22.12 \
     cp build/nfd.conf.sample /usr/local/etc/ndn/nfd.conf &&\
     cd .. && rm -r NFD
 # NDN tools
-RUN git clone -b ndn-tools-22.12 https://github.com/named-data/ndn-tools.git &&\
+RUN git clone \
+    # -b ndn-tools-22.12 \
+    https://github.com/named-data/ndn-tools.git &&\
     cd ndn-tools &&\
     ./waf configure &&\
     ./waf &&\
@@ -82,7 +86,7 @@ RUN git clone -b ndn-tools-22.12 https://github.com/named-data/ndn-tools.git &&\
 # NDN-Traffic-Generator
 RUN git clone https://github.com/named-data/ndn-traffic-generator.git &&\
     cd ndn-traffic-generator &&\
-    git reset --hard 08208497d8cf7843d58e744081e60c84e1e81216 &&\
+    # git reset --hard 08208497d8cf7843d58e744081e60c84e1e81216 &&\
     ./waf configure &&\
     ./waf &&\
     ./waf install &&\
@@ -91,7 +95,7 @@ RUN git clone https://github.com/named-data/ndn-traffic-generator.git &&\
 # NDN-SVS
 RUN git clone https://github.com/named-data/ndn-svs.git &&\
     cd ndn-svs &&\
-    git reset --hard f6129786571b73e5a73256325d4b1d23af0f5d8e &&\
+    # git reset --hard f6129786571b73e5a73256325d4b1d23af0f5d8e &&\
     ./waf configure &&\
     ./waf &&\
     ./waf install &&\
@@ -145,6 +149,10 @@ COPY scripts/insert_file.sh /root/insert_file.sh
 
 # Pathch ndn
 RUN sudo sed -i '291 i\    if params is None:\n        return ret' /usr/local/lib/python3.10/dist-packages/ndn/app_support/nfd_mgmt.py
-RUN sudo sed -i '422 i\        await aio.sleep(1)' /usr/local/lib/python3.10/dist-packages/ndn/app.py
+
+# Generate dummy files
+RUN dd if=/dev/urandom of=/root/1.bin bs=1M count=1
+RUN dd if=/dev/urandom of=/root/10.bin bs=10M count=1
+RUN dd if=/dev/urandom of=/root/100.bin bs=100M count=1
 
 ENTRYPOINT nfd-start -f

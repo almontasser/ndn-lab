@@ -71,6 +71,7 @@ class PubSub:
         if self.base_prefix != None:
             try:
                 await self.app.register(self.base_prefix, func=None)
+                await aio.sleep(0.2)
             except ValueError as esc:
                 pass
 
@@ -79,6 +80,7 @@ class PubSub:
                 self.app.set_interest_filter(self.publisher_prefix + ['msg'], self._on_msg_interest)
             else:
                 await self.app.register(self.publisher_prefix + ['msg'], self._on_msg_interest)
+                await aio.sleep(0.2)
         except ValueError as esc:
             # duplicate registration
             pass
@@ -169,6 +171,7 @@ class PubSub:
             logging.info(f'Subscribing to topic (with interest filter): {Name.to_str(topic)}')
         else:
             await self.app.register(to_register, self._on_notify_interest)
+            await aio.sleep(0.2)
             logging.info(f'Subscribing to topic: {Name.to_str(topic)}')
             
     def _on_notify_interest(self, int_name, int_param, app_param):

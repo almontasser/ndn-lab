@@ -6,4 +6,4 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-python client/main.py insert -r /ndn -f $1 -p $1 -w 10
+python client/main.py fetch -r /ndn -f $1

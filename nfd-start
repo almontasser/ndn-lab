@@ -63,12 +63,13 @@ if [ -f /usr/local/etc/ndn/autoconfig.conf ]; then
   /usr/local/bin/ndn-autoconfig -d -c "/usr/local/etc/ndn/autoconfig.conf" &
 fi
 
-# nfdc route add /ndn udp://172.100.100.101:6363
-# nfdc route add /ndn udp://172.100.100.102:6363
-# nfdc route add /ndn udp://172.100.100.103:6363
-# nfdc route add /ndn udp://172.100.100.104:6363
+sleep 2
+nfdc route add /ndn udp://172.100.100.101:6363
+nfdc route add /ndn udp://172.100.100.102:6363
+nfdc route add /ndn udp://172.100.100.103:6363
+nfdc route add /ndn udp://172.100.100.104:6363
 
-sleep 1
+sleep 2
 
 nfdc route add /ndn1 udp://172.100.100.101:6363
 nfdc route add /ndn2 udp://172.100.100.102:6363
@@ -76,7 +77,14 @@ nfdc route add /ndn3 udp://172.100.100.103:6363
 nfdc route add /ndn4 udp://172.100.100.104:6363
 nfdc route add /client udp://172.100.100.201:6363
 
-sleep 1
+sleep 2
+
+nfdc route add /ndn/node/ndn1 udp4://172.100.100.101:6363
+nfdc route add /ndn/node/ndn2 udp4://172.100.100.102:6363
+nfdc route add /ndn/node/ndn3 udp4://172.100.100.103:6363
+nfdc route add /ndn/node/ndn4 udp4://172.100.100.104:6363
+
+sleep 2
 
 nfdc strategy set /ndn/group /localhost/nfd/strategy/multicast
 

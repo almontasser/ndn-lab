@@ -86,7 +86,9 @@ async def listen(repo_prefix: Name, pb: PubSub, insert_handle: InsertCommandHand
     await pb.wait_for_ready()
     # protocol handle
     await insert_handle.listen(repo_prefix)
+    await aio.sleep(0.2)
     await delete_handle.listen(repo_prefix)
+    await aio.sleep(0.2)
 
 class NodeThread(Thread):
     def __init__(self, config: Dict):
@@ -138,10 +140,13 @@ class NodeThread(Thread):
         
         # Post-start
         async def start_main_loop():
-            read_handle = ReadHandler(app, data_storage, global_view, self.config)
             insert_handle = InsertCommandHandler(app, data_storage, pb, self.config, main_loop, global_view)
             delete_handle = DeleteCommandHandler(app, data_storage, pb, self.config, main_loop, global_view)
+            
+            read_handle = ReadHandler(app, data_storage, global_view, self.config)
+            await aio.sleep(0.2)
             query_handle = QueryHandler(app, global_view, self.config)
+            await aio.sleep(0.2)
 
             await listen(Name.normalize(self.config['repo_prefix']), pb, insert_handle, delete_handle)
             await main_loop.start()

@@ -6,7 +6,7 @@ from ndn.encoding import FormalName, Component, Name, ContentType
 import os
 from time import sleep
 
-from utils import concurrent_fetcher
+from utils.concurrent_fetcher import concurrent_fetcher
 
 class FetchClient(object):
     def __init__(self, app: NDNApp, client_prefix: FormalName, repo_prefix: FormalName) -> None:

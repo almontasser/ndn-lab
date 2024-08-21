@@ -6,7 +6,7 @@ from ndn.app import NDNApp
 from ndn.storage import Storage
 
 from modules.global_view import GlobalView
-from utils import concurrent_fetcher
+from utils.concurrent_fetcher import concurrent_fetcher
 
 class FileFetcher:
     """
