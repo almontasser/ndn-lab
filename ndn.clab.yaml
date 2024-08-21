@@ -1,0 +1,33 @@
+name: ndn
+
+mgmt:
+  network: fixedips
+  ipv4-subnet: 172.100.100.0/24
+
+topology:
+  nodes:
+    ndn1:
+      kind: linux
+      image: ndn
+      mgmt-ipv4: 172.100.100.101
+    ndn2:
+      kind: linux
+      image: ndn
+      mgmt-ipv4: 172.100.100.102
+    ndn3:
+      kind: linux
+      image: ndn
+      mgmt-ipv4: 172.100.100.103
+    ndn4:
+      kind: linux
+      image: ndn
+      mgmt-ipv4: 172.100.100.104
+    client:
+      kind: linux
+      image: ndn
+      mgmt-ipv4: 172.100.100.201
+  # links:
+  #   - endpoints: ["ndn1:eth1", "ndn2:eth1"]
+  #   - endpoints: ["ndn2:eth2", "ndn3:eth1"]
+  #   - endpoints: ["ndn3:eth2", "ndn4:eth1"]
+  #   - endpoints: ["ndn4:eth2", "ndn1:eth2"]
